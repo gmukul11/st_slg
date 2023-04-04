@@ -1,7 +1,7 @@
 import streamlit as st
 import st_hist_insight_gen
 import openai
-openai.api_key="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"
+openai.api_key=st.secrets['openai_api_key']
 
 def generate_response(prompt):
     completion = openai.ChatCompletion.create(
