@@ -67,7 +67,7 @@ def preprocessing(data,channel):
         return data
     return None
 
-fileli=glob.glob("./data/Campaign_*")
+# fileli=glob.glob("./data/Campaign_*")
 
 channelli=['Email','Web Push','App Push']
 
@@ -76,7 +76,7 @@ channelli=['Email','Web Push','App Push']
 
 def insight_prep(channel):
 
-    data=pd.read_csv(fileli[2])
+    data=pd.read_csv("Campaign_Multi_Unified_Summary_20230403 (2).csv")
     data=preprocessing(data,channel)
     if data is None:
         return ""
