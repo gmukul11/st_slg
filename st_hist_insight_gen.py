@@ -67,7 +67,7 @@ def preprocessing(data,channel):
         return data
     return None
 
-fileli=glob.glob("../data/Campaign_*")
+fileli=glob.glob("./data/Campaign_*")
 
 channelli=['Email','Web Push','App Push']
 
