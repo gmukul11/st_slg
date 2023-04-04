@@ -18,24 +18,24 @@ def simple_stats(data):
     print(f"Top titles by count: \n{data['Subject line or Title'].value_counts().head()}")
     print("-----------------------------------------")
 
-def emoji_li(text):
-    emoji_list = []
-    data = regex.findall(r'\X', text)
-    for word in data:
-        if word in emoji.UNICODE_EMOJI['en']:
-            emoji_list.append(word)
-    return emoji_list
+# def emoji_li(text):
+#     emoji_list = []
+#     data = regex.findall(r'\X', text)
+#     for word in data:
+#         if word in emoji.UNICODE_EMOJI['en']:
+#             emoji_list.append(word)
+#     return emoji_list
 
-def rem_emoji(x):
-    temp=[]
-    for i in range(len(x)):
-        if x[i] in emoji.UNICODE_EMOJI['en']:
-            temp.append(i)
-    ans=""
-    for i in range(len(x)):
-        if i not in temp:
-            ans+=x[i]
-    return " ".join(ans.split())
+# def rem_emoji(x):
+#     temp=[]
+#     for i in range(len(x)):
+#         if x[i] in emoji.UNICODE_EMOJI['en']:
+#             temp.append(i)
+#     ans=""
+#     for i in range(len(x)):
+#         if i not in temp:
+#             ans+=x[i]
+#     return " ".join(ans.split())
 
 def preprocessing(data,channel):
     data['Subject line or Title']=data['Subject line or Title'].astype(str)
@@ -45,16 +45,18 @@ def preprocessing(data,channel):
     if data.shape[0]>0:
         data=data.groupby(['Subject line or Title','Channel']).agg({'Delivered':sum,'Unique Clicked':sum}).reset_index()
         data['clicked_perc']=(data['Unique Clicked']*100)/data['Delivered']
-        data['emoji_list']=data['Subject line or Title'].apply(lambda x : emoji_li(x))
-        data['title_list']=data['Subject line or Title'].apply(lambda x : regex.findall(r'\X', x))
-        data['Subject line or Title_v2']=data['title_list'].apply(lambda x : rem_emoji(x))
+#         data['emoji_list']=data['Subject line or Title'].apply(lambda x : emoji_li(x))
+#         data['title_list']=data['Subject line or Title'].apply(lambda x : regex.findall(r'\X', x))
+        data['Subject line or Title_v2']=data['Subject line or Title'].apply(lambda x : emoji.replace_emoji(x, replace=''))
         data['Subject line or Title_v2']=data['Subject line or Title_v2'].apply(lambda x : x.strip())
         data['last_letter']=data['Subject line or Title_v2'].apply(lambda x : x[-1] if len(x)>0 else '.')
         data['tonality']=np.where(data['last_letter']=='!','surprise',np.where(data['last_letter']=='?','curious','simple'))
         data['title_isupper']=data['Subject line or Title'].apply(lambda x : x.isupper())
         data['title_len']=data['title_list'].apply(lambda x : len(x))
         data['no_of_words']=data['Subject line or Title_v2'].apply(lambda x : len(x.split()))
-        data['number of emojis']=data['emoji_list'].apply(lambda x : len(x))
+        data['number of emojis']=data['Subject line or Title'].apply(lambda x : emoji.emoji_count(x))
+        data['title_len']=data['Subject line or Title_v2'].apply(lambda x : len(x))
+        data['title_len']=data['title_len']+data['number of emojis']
         data['number of emojis']=np.where(data['number of emojis']>2,'2+',data['number of emojis'])
         data['title length bucket']=pd.qcut(data['title_len'],4)
         data['number of words bucket']=pd.qcut(data['no_of_words'],4)
