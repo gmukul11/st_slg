@@ -32,7 +32,7 @@ def preprocessing(data,channel):
         return data
     return None
 
-def insight_prep(data,channel,featli):
+def insight_prep(data,featli):
         hist_insight=""
         j=0
         for i in featli:
