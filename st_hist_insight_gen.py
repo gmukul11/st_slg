@@ -1,41 +1,7 @@
 import pandas as pd
 import numpy as np
 import emoji
-import regex
-import glob
 import re
-import random
-
-def simple_stats(data):
-    print(f"Min date: {data['Published Time'].min()}")
-    print("-----------------------------------------")
-    print(f"Max date: {data['Published Time'].max()}")
-    print("-----------------------------------------")
-    print(f"Unique Titles: {data['Subject line or Title'].nunique()}")
-    print("-----------------------------------------")
-    print(f"Max length of title: {data['Subject line or Title'].apply(lambda x : len(x)).max()}")
-    print("-----------------------------------------")
-    print(f"Top titles by count: \n{data['Subject line or Title'].value_counts().head()}")
-    print("-----------------------------------------")
-
-# def emoji_li(text):
-#     emoji_list = []
-#     data = regex.findall(r'\X', text)
-#     for word in data:
-#         if word in emoji.UNICODE_EMOJI['en']:
-#             emoji_list.append(word)
-#     return emoji_list
-
-# def rem_emoji(x):
-#     temp=[]
-#     for i in range(len(x)):
-#         if x[i] in emoji.UNICODE_EMOJI['en']:
-#             temp.append(i)
-#     ans=""
-#     for i in range(len(x)):
-#         if i not in temp:
-#             ans+=x[i]
-#     return " ".join(ans.split())
 
 def preprocessing(data,channel):
     data['Subject line or Title']=data['Subject line or Title'].astype(str)
@@ -45,8 +11,6 @@ def preprocessing(data,channel):
     if data.shape[0]>0:
         data=data.groupby(['Subject line or Title','Channel']).agg({'Delivered':sum,'Unique Clicked':sum}).reset_index()
         data['clicked_perc']=(data['Unique Clicked']*100)/data['Delivered']
-#         data['emoji_list']=data['Subject line or Title'].apply(lambda x : emoji_li(x))
-#         data['title_list']=data['Subject line or Title'].apply(lambda x : regex.findall(r'\X', x))
         data['Subject line or Title_v2']=data['Subject line or Title'].apply(lambda x : emoji.replace_emoji(x, replace=''))
         data['Subject line or Title_v2']=data['Subject line or Title_v2'].apply(lambda x : x.strip())
         data['last_letter']=data['Subject line or Title_v2'].apply(lambda x : x[-1] if len(x)>0 else '.')
@@ -68,23 +32,7 @@ def preprocessing(data,channel):
         return data
     return None
 
-# fileli=glob.glob("./data/Campaign_*")
-
-channelli=['Email','Web Push','App Push']
-
-# client=fileli[random.randint(0,len(fileli)-1)]
-# channel=channelli[random.randint(0,len(channelli)-1)]
-
-def insight_prep(channel):
-
-    data=pd.read_csv("Campaign_Multi_Unified_Summary_20230403 (2).csv")
-    data=preprocessing(data,channel)
-    if data is None:
-        return ""
-    if data.shape[0]>0:
-        featli=list(data.columns[7:])
-        featli.remove('no_of_words')
-        featli.remove('title_len')
+def insight_prep(data,channel,featli):
         hist_insight=""
         j=0
         for i in featli:
