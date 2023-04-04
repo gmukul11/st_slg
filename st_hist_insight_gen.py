@@ -82,15 +82,15 @@ def insight_prep(channel):
     if data is None:
         return ""
     if data.shape[0]>0:
-        featli=list(data.columns[9:])
+        featli=list(data.columns[7:])
         featli.remove('no_of_words')
         featli.remove('title_len')
         hist_insight=""
         j=0
         for i in featli:
-            temp=pd.DataFrame(data.groupby(i).agg({'Delivered':'sum','Unique Clicked':'sum','title_list':'count'})).reset_index()
+            temp=pd.DataFrame(data.groupby(i).agg({'Delivered':'sum','Unique Clicked':'sum','Channel':'count'})).reset_index()
             if temp.shape[0]>0:
-                temp.rename({'title_list':'cnt'},axis=1,inplace=True)
+                temp.rename({'Channel':'cnt'},axis=1,inplace=True)
                 temp['ctr']=(temp['Unique Clicked']*100)/temp['Delivered']
                 total_val=(temp[temp['cnt']>5]['Unique Clicked'].sum()*100)/temp[temp['cnt']>10]['Delivered'].sum()
                 high_cat=temp.iloc[temp[temp['cnt']>10][['ctr']].idxmax()][i].values[0]
