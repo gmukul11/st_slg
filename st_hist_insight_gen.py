@@ -52,7 +52,6 @@ def preprocessing(data,channel):
         data['last_letter']=data['Subject line or Title_v2'].apply(lambda x : x[-1] if len(x)>0 else '.')
         data['tonality']=np.where(data['last_letter']=='!','surprise',np.where(data['last_letter']=='?','curious','simple'))
         data['title_isupper']=data['Subject line or Title'].apply(lambda x : x.isupper())
-        data['title_len']=data['title_list'].apply(lambda x : len(x))
         data['no_of_words']=data['Subject line or Title_v2'].apply(lambda x : len(x.split()))
         data['number of emojis']=data['Subject line or Title'].apply(lambda x : emoji.emoji_count(x))
         data['title_len']=data['Subject line or Title_v2'].apply(lambda x : len(x))
