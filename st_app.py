@@ -69,7 +69,7 @@ if __name__=="__main__":
                     st.markdown(f"Expected click rate: {slg_scr_li[i]:.02f}%")
                 except:
                     st.markdown("not valid score")
-         except:
+        except:
             st.markdown("not valid score")
     st.subheader("Historical market campaign title insights :")
     st.text(hist_res)
