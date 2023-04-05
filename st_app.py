@@ -11,7 +11,7 @@ def generate_response(prompt):
     return completion.choices[0].message.content
 
 def ctr_prediction(inpt,channel):
-    prompt="Channel: " + channel + " Subject line: "+ inpt +  " -->"
+    prompt="Channel: " + channel + ", Title: "+ inpt +  " ->"
     prompt=prompt.strip()
     res=openai.Completion.create(model="davinci:ft-netcore-cloud:travel-industry-ctr-pred-model-2023-04-04-19-33-44", prompt=prompt,max_tokens=5)['choices'][0]['text'].strip()
     try:
