@@ -7,7 +7,7 @@ openai.api_key=st.secrets['openai_api_key']
 def generate_response(prompt):
     completion = openai.ChatCompletion.create(
     model="gpt-4",
-    messages=[{"role": "user", "content": prompt}])
+    messages=[{"role": "user", "content": prompt}],temperature=0)
     return completion.choices[0].message.content
 
 def ctr_prediction(inpt,channel):
