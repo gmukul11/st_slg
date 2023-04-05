@@ -46,7 +46,10 @@ if __name__=="__main__":
     input_scr=ctr_prediction(client_input,channel)
     st.text("")
     st.markdown(f"**Client input** : {client_input}") 
-    st.markdown(f"**Client input click rate prediction** : {input_scr:.02f}%")
+    try:
+        st.markdown(f"**Client input click rate prediction** : {input_scr:.02f}%")
+    except:
+        st.markdown("not valid score")
     slg =generate_response(prompt) 
     slg_li=slg.split('\n')
     slg_scr_li=[]
@@ -56,7 +59,10 @@ if __name__=="__main__":
     for i in range(len(slg_li)):
         if slg_scr_li[i]>input_scr:
             st.markdown(f"Suggestion: {slg_li[i][2:]}") 
-            st.markdown(f"Expected click rate: {slg_scr_li[i]:.02f}%")
+            try:
+                st.markdown(f"Expected click rate: {slg_scr_li[i]:.02f}%")
+            except:
+                st.markdown("not valid score")
     st.subheader("Historical market campaign title insights :")
     st.text(hist_res)
 
