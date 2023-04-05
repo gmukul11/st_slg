@@ -55,7 +55,7 @@ if __name__=="__main__":
     st.subheader("Suggested Market campaign title based on historical insight and client input :")
     for i in range(len(slg_li)):
         if slg_scr_li[i]>input_scr:
-            st.markdown(f"Suggestion: {slg_li[i]}) 
+            st.markdown(f"Suggestion: {slg_li[i]}") 
             st.markdown(f"Expected click rate: {slg_scr_li[i]:.02f}%")
     st.subheader("Historical market campaign title insights :")
     st.text(hist_res)
