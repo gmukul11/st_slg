@@ -12,7 +12,7 @@ def generate_response(prompt):
 def ctr_prediction(inpt,channel):
     prompt="Channel: " + channel + " Subject line: "+ inpt +  " -->"
     prompt=prompt.strip()
-    res=float(openai.Completion.create(model="davinci:ft-netcore-cloud-2023-04-04-01-15-42", prompt=prompt,max_tokens=5)['choices'][0]['text'].strip())
+    res=float(openai.Completion.create(model="davinci:ft-netcore-cloud:travel-industry-ctr-pred-model-2023-04-04-19-33-44", prompt=prompt,max_tokens=5)['choices'][0]['text'].strip())
     return res
 
 if __name__="__main__":
