@@ -15,7 +15,7 @@ def ctr_prediction(inpt,channel):
     res=float(openai.Completion.create(model="davinci:ft-netcore-cloud:travel-industry-ctr-pred-model-2023-04-04-19-33-44", prompt=prompt,max_tokens=5)['choices'][0]['text'].strip())
     return res
 
-if __name__="__main__":
+if __name__=="__main__":
     st.write(
         """
         ### Marketing Campaign Subject Line Generator
