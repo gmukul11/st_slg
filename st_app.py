@@ -40,7 +40,7 @@ if __name__=="__main__":
     {hist_res}
     and client input for new campaign :
     {client_input}
-    generate 5 suggestions of new marketing campaign subject line which will result in higher click rate
+    generate 7 suggestions of new marketing campaign subject line which will result in higher click rate and stay relevant to client input
 
     """
     input_scr=ctr_prediction(client_input,channel)
@@ -54,7 +54,9 @@ if __name__=="__main__":
         slg_scr_li.append(ctr_prediction(slg_li[i][2:].strip(),channel))
     st.subheader("Suggested Market campaign title based on historical insight and client input :")
     for i in range(len(slg_li)):
-        st.markdown(f"Suggestion: {slg_li[i]} and expected click rate: {slg_scr_li[i]:.02f}%")
+        if slg_scr_li[i]>input_scr:
+            st.markdown(f"Suggestion: {slg_li[i]}) 
+            st.markdown(f"Expected click rate: {slg_scr_li[i]:.02f}%")
     st.subheader("Historical market campaign title insights :")
     st.text(hist_res)
 
