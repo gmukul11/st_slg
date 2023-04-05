@@ -40,7 +40,7 @@ def insight_prep(data,featli):
             if temp.shape[0]>0:
                 temp.rename({'Channel':'cnt'},axis=1,inplace=True)
                 temp['ctr']=(temp['Unique Clicked']*100)/temp['Delivered']
-                total_val=(temp[temp['cnt']>5]['Unique Clicked'].sum()*100)/temp[temp['cnt']>10]['Delivered'].sum()
+                total_val=(temp[temp['cnt']>10]['Unique Clicked'].sum()*100)/temp[temp['cnt']>10]['Delivered'].sum()
                 high_cat=temp.iloc[temp[temp['cnt']>10][['ctr']].idxmax()][i].values[0]
                 high_val=temp.iloc[temp[temp['cnt']>10][['ctr']].idxmax()]['ctr'].values[0]
                 inc_val=(high_val-total_val)*100/total_val
