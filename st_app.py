@@ -13,7 +13,11 @@ def generate_response(prompt):
 def ctr_prediction(inpt,channel):
     prompt="Channel: " + channel + " Subject line: "+ inpt +  " -->"
     prompt=prompt.strip()
-    res=float(openai.Completion.create(model="davinci:ft-netcore-cloud:travel-industry-ctr-pred-model-2023-04-04-19-33-44", prompt=prompt,max_tokens=5)['choices'][0]['text'].strip())
+    res=openai.Completion.create(model="davinci:ft-netcore-cloud:travel-industry-ctr-pred-model-2023-04-04-19-33-44", prompt=prompt,max_tokens=5)['choices'][0]['text'].strip()
+    try:
+        res=float(res)
+    except:
+        res="not valid"
     return res
 
 if __name__=="__main__":
@@ -57,12 +61,16 @@ if __name__=="__main__":
         slg_scr_li.append(ctr_prediction(slg_li[i][2:].strip(),channel))
     st.subheader("Suggested Market campaign title based on historical insight and client input :")
     for i in range(len(slg_li)):
-        if slg_scr_li[i]>input_scr:
-            st.markdown(f"Suggestion: {slg_li[i][2:]}") 
-            try:
-                st.markdown(f"Expected click rate: {slg_scr_li[i]:.02f}%")
-            except:
-                st.markdown("not valid score")
+        try:
+            
+            if slg_scr_li[i]>input_scr:
+                st.markdown(f"Suggestion: {slg_li[i][2:]}") 
+                try:
+                    st.markdown(f"Expected click rate: {slg_scr_li[i]:.02f}%")
+                except:
+                    st.markdown("not valid score")
+         except:
+            st.markdown("not valid score")
     st.subheader("Historical market campaign title insights :")
     st.text(hist_res)
 
