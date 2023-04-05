@@ -31,7 +31,7 @@ if __name__=="__main__":
 
     col1, col2 = st.columns(2)
 
-    channel = col1.selectbox("Select Channel",["App Push", "Email", "Web Push"])
+    channel = col1.selectbox("Select Channel",["Email", "Web Push", "App Push"])
     client_input=col2.text_input("Give input","For e.g. Travel with us - get exciting offers")
     data=pd.read_csv("travel_industry_campaign_data.csv")
     featli=['tonality','title_isupper','number of emojis','title length bucket','number of words bucket','discount tag','personlisation tag','new tag']
