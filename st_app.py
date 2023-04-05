@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 import st_hist_insight_gen
 import openai
 openai.api_key=st.secrets['openai_api_key']
