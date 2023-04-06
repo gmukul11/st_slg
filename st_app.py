@@ -47,7 +47,7 @@ if __name__=="__main__":
     generate 7 suggestions of new marketing campaign subject line which will result in higher click rate and stay relevant to client input
 
     """
-    input_scr=max(0.05,ctr_prediction(client_input,channel)-0.2)
+    input_scr=max(0.05,ctr_prediction(client_input,channel)-0.1)
     st.text("")
     st.markdown(f"**Client input** : {client_input}") 
     try:
