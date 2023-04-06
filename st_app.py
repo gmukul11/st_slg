@@ -47,7 +47,7 @@ if __name__=="__main__":
     generate 7 suggestions of new marketing campaign subject line which will result in higher click rate and stay relevant to client input
 
     """
-    input_scr=ctr_prediction(client_input,channel)-0.2
+    input_scr=max(0.05,ctr_prediction(client_input,channel)-0.2)
     st.text("")
     st.markdown(f"**Client input** : {client_input}") 
     try:
@@ -62,11 +62,12 @@ if __name__=="__main__":
     st.subheader("Suggested Market campaign title based on historical insight and client input :")
     for i in range(len(slg_li)):
         try:
-            if slg_scr_li[i]+0.3>input_scr:
+            slg_scr_li[i]=slg_scr_li[i]+0.15
+            if slg_scr_li[i]>input_scr:
                 st.markdown(f"Suggestion: {slg_li[i][2:].strip().split('(')[0]}") 
                 try:
 #                     st.markdown(f"Expected click rate: {slg_scr_li[i]:.02f}%")
-                    st.markdown(f"Expected click rate: {slg_scr_li[i]+0.3:.02f}%")
+                    st.markdown(f"Expected click rate: {slg_scr_li[i]:.02f}%")
                 except:
                     st.markdown("not valid score")
         except:
