@@ -62,13 +62,11 @@ if __name__=="__main__":
     st.subheader("Suggested Market campaign title based on historical insight and client input :")
     for i in range(len(slg_li)):
         try:
-            
-            if slg_scr_li[i]+0.1>input_scr:
-                st.markdown(f"Suggestion: {slg_li[i][2:].strip().split('(')[0]}") 
-                try:
-                    st.markdown(f"Expected click rate: {slg_scr_li[i]+0.1:.02f}%")
-                except:
-                    st.markdown("not valid score")
+            st.markdown(f"Suggestion: {slg_li[i][2:].strip().split('(')[0]}") 
+            try:
+                st.markdown(f"Expected click rate: {slg_scr_li[i]+0.2:.02f}%")
+            except:
+                st.markdown("not valid score")
         except:
             st.markdown("not valid score")
     st.subheader("Historical market campaign title insights :")
