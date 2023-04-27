@@ -64,10 +64,10 @@ if __name__=="__main__":
         try:
             slg_scr_li[i]=slg_scr_li[i]+0.15
             if slg_scr_li[i]>input_scr:
-                st.markdown(f"Suggestion: {slg_li[i][2:].strip().split('(')[0]}") 
+                st.markdown(f"Suggestion: **{slg_li[i][2:].strip().split('(')[0]}**") 
                 try:
-#                     st.markdown(f"Expected click rate: {slg_scr_li[i]:.02f}%")
-                    st.markdown(f"Expected click rate: {slg_scr_li[i]:.02f}%")
+#                     st.markdown(f"Expected click rate: **{slg_scr_li[i]:.02f}%**")
+                    st.markdown(f"Expected click rate: **{slg_scr_li[i]:.02f}%**")
                 except:
                     st.markdown("not valid score")
         except:
