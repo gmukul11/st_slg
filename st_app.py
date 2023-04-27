@@ -49,7 +49,7 @@ if __name__=="__main__":
     """
     input_scr=max(0.05,ctr_prediction(client_input,channel)-0.1)
     st.text("")
-    st.markdown(f"**Client input** : {client_input}") 
+    st.markdown(f"**Client input** : :blue[{client_input}]") 
     try:
         st.markdown(f"**Client input click rate prediction** : {input_scr:.02f}%")
     except:
