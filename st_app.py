@@ -51,7 +51,7 @@ if __name__=="__main__":
     st.text("")
     st.markdown(f"**Client input** : :blue[{client_input}]") 
     try:
-        st.markdown(f"**Client input click rate prediction** : {input_scr:.02f}%")
+        st.markdown(f"**Client input click rate prediction** : :blue[{input_scr:.02f}%]")
     except:
         st.markdown("not valid score")
     slg =generate_response(prompt) 
